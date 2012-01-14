@@ -4024,8 +4024,6 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                             0x01,               // Alignment
                             0x08,               // Length
                             )
-                        IRQNoFlags ()
-                            {8}
                     })
                 }
 
