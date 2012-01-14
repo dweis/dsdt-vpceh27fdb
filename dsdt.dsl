@@ -3837,8 +3837,6 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                             0x01,               // Alignment
                             0x02,               // Length
                             )
-                        IRQNoFlags ()
-                            {2}
                     })
                 }
 
@@ -4006,8 +4004,6 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                             0x10,               // Alignment
                             0x04,               // Length
                             )
-                        IRQNoFlags ()
-                            {0}
                     })
                 }
 
