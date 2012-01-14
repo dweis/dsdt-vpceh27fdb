@@ -34,7 +34,6 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
     External (PDC1)
     External (PDC0)
     External (CFGD)
-    External (\TNOT)
     External (\_PR_.CPU3._PPC)
     External (\_PR_.CPU2._PPC)
     External (\_PR_.CPU1._PPC)
@@ -4132,7 +4131,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
 
                 Device (PS2M)
                 {
-                    Name (_HID, "SNYALP0501")
+                    Name (_HID, "SNYALP05")
                     Name (_CID, EisaId ("PNP0F13"))
                     Name (_CRS, ResourceTemplate ()
                     {
@@ -5365,7 +5364,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                         Alias (SBV1, SDGV)
                         Method (_DSM, 4, Serialized)
                         {
-                            Name (_T_0, Zero)
+                            Name (T_0, Zero)
                             If (LEqual (Arg0, Buffer (0x10)
                                     {
                                         /* 0000 */    0x8F, 0x70, 0xFC, 0xA5, 0x75, 0x87, 0xA6, 0x4B, 
@@ -5374,8 +5373,8 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                             {
                                 While (One)
                                 {
-                                    Store (ToInteger (Arg2), _T_0)
-                                    If (LEqual (_T_0, Zero))
+                                    Store (ToInteger (Arg2), T_0)
+                                    If (LEqual (T_0, Zero))
                                     {
                                         If (LEqual (Arg1, One))
                                         {
@@ -5394,7 +5393,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                                     }
                                     Else
                                     {
-                                        If (LEqual (_T_0, One))
+                                        If (LEqual (T_0, One))
                                         {
                                             If (LEqual (SDGV, 0xFF))
                                             {
@@ -5407,7 +5406,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                                         }
                                         Else
                                         {
-                                            If (LEqual (_T_0, 0x02))
+                                            If (LEqual (T_0, 0x02))
                                             {
                                                 Return (SDGV)
                                             }
@@ -5443,7 +5442,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                         Alias (SBV2, SDGV)
                         Method (_DSM, 4, Serialized)
                         {
-                            Name (_T_0, Zero)
+                            Name (T_0, Zero)
                             If (LEqual (Arg0, Buffer (0x10)
                                     {
                                         /* 0000 */    0x8F, 0x70, 0xFC, 0xA5, 0x75, 0x87, 0xA6, 0x4B, 
@@ -5452,8 +5451,8 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                             {
                                 While (One)
                                 {
-                                    Store (ToInteger (Arg2), _T_0)
-                                    If (LEqual (_T_0, Zero))
+                                    Store (ToInteger (Arg2), T_0)
+                                    If (LEqual (T_0, Zero))
                                     {
                                         If (LEqual (Arg1, One))
                                         {
@@ -5472,7 +5471,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                                     }
                                     Else
                                     {
-                                        If (LEqual (_T_0, One))
+                                        If (LEqual (T_0, One))
                                         {
                                             If (LEqual (SDGV, 0xFF))
                                             {
@@ -5485,7 +5484,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                                         }
                                         Else
                                         {
-                                            If (LEqual (_T_0, 0x02))
+                                            If (LEqual (T_0, 0x02))
                                             {
                                                 Return (SDGV)
                                             }
@@ -5521,7 +5520,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                         Alias (SBV1, SDGV)
                         Method (_DSM, 4, Serialized)
                         {
-                            Name (_T_0, Zero)
+                            Name (T_0, Zero)
                             If (LEqual (Arg0, Buffer (0x10)
                                     {
                                         /* 0000 */    0x8F, 0x70, 0xFC, 0xA5, 0x75, 0x87, 0xA6, 0x4B, 
@@ -5530,8 +5529,8 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                             {
                                 While (One)
                                 {
-                                    Store (ToInteger (Arg2), _T_0)
-                                    If (LEqual (_T_0, Zero))
+                                    Store (ToInteger (Arg2), T_0)
+                                    If (LEqual (T_0, Zero))
                                     {
                                         If (LEqual (Arg1, One))
                                         {
@@ -5550,7 +5549,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                                     }
                                     Else
                                     {
-                                        If (LEqual (_T_0, One))
+                                        If (LEqual (T_0, One))
                                         {
                                             If (LEqual (SDGV, 0xFF))
                                             {
@@ -5563,7 +5562,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                                         }
                                         Else
                                         {
-                                            If (LEqual (_T_0, 0x02))
+                                            If (LEqual (T_0, 0x02))
                                             {
                                                 Return (SDGV)
                                             }
@@ -5599,7 +5598,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                         Alias (SBV2, SDGV)
                         Method (_DSM, 4, Serialized)
                         {
-                            Name (_T_0, Zero)
+                            Name (T_0, Zero)
                             If (LEqual (Arg0, Buffer (0x10)
                                     {
                                         /* 0000 */    0x8F, 0x70, 0xFC, 0xA5, 0x75, 0x87, 0xA6, 0x4B, 
@@ -5608,8 +5607,8 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                             {
                                 While (One)
                                 {
-                                    Store (ToInteger (Arg2), _T_0)
-                                    If (LEqual (_T_0, Zero))
+                                    Store (ToInteger (Arg2), T_0)
+                                    If (LEqual (T_0, Zero))
                                     {
                                         If (LEqual (Arg1, One))
                                         {
@@ -5628,7 +5627,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                                     }
                                     Else
                                     {
-                                        If (LEqual (_T_0, One))
+                                        If (LEqual (T_0, One))
                                         {
                                             If (LEqual (SDGV, 0xFF))
                                             {
@@ -5641,7 +5640,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                                         }
                                         Else
                                         {
-                                            If (LEqual (_T_0, 0x02))
+                                            If (LEqual (T_0, 0x02))
                                             {
                                                 Return (SDGV)
                                             }
@@ -5779,7 +5778,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                         Alias (SBV1, SDGV)
                         Method (_DSM, 4, Serialized)
                         {
-                            Name (_T_0, Zero)
+                            Name (T_0, Zero)
                             If (LEqual (Arg0, Buffer (0x10)
                                     {
                                         /* 0000 */    0x8F, 0x70, 0xFC, 0xA5, 0x75, 0x87, 0xA6, 0x4B, 
@@ -5788,8 +5787,8 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                             {
                                 While (One)
                                 {
-                                    Store (ToInteger (Arg2), _T_0)
-                                    If (LEqual (_T_0, Zero))
+                                    Store (ToInteger (Arg2), T_0)
+                                    If (LEqual (T_0, Zero))
                                     {
                                         If (LEqual (Arg1, One))
                                         {
@@ -5808,7 +5807,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                                     }
                                     Else
                                     {
-                                        If (LEqual (_T_0, One))
+                                        If (LEqual (T_0, One))
                                         {
                                             If (LEqual (SDGV, 0xFF))
                                             {
@@ -5821,7 +5820,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                                         }
                                         Else
                                         {
-                                            If (LEqual (_T_0, 0x02))
+                                            If (LEqual (T_0, 0x02))
                                             {
                                                 Return (SDGV)
                                             }
@@ -5857,7 +5856,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                         Alias (SBV2, SDGV)
                         Method (_DSM, 4, Serialized)
                         {
-                            Name (_T_0, Zero)
+                            Name (T_0, Zero)
                             If (LEqual (Arg0, Buffer (0x10)
                                     {
                                         /* 0000 */    0x8F, 0x70, 0xFC, 0xA5, 0x75, 0x87, 0xA6, 0x4B, 
@@ -5866,8 +5865,8 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                             {
                                 While (One)
                                 {
-                                    Store (ToInteger (Arg2), _T_0)
-                                    If (LEqual (_T_0, Zero))
+                                    Store (ToInteger (Arg2), T_0)
+                                    If (LEqual (T_0, Zero))
                                     {
                                         If (LEqual (Arg1, One))
                                         {
@@ -5886,7 +5885,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                                     }
                                     Else
                                     {
-                                        If (LEqual (_T_0, One))
+                                        If (LEqual (T_0, One))
                                         {
                                             If (LEqual (SDGV, 0xFF))
                                             {
@@ -5899,7 +5898,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                                         }
                                         Else
                                         {
-                                            If (LEqual (_T_0, 0x02))
+                                            If (LEqual (T_0, 0x02))
                                             {
                                                 Return (SDGV)
                                             }
@@ -6968,104 +6967,104 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
 
                     Method (_BCM, 1, Serialized)
                     {
-                        Name (_T_0, Zero)
+                        Name (T_0, Zero)
                         If (LAnd (LGreaterEqual (Arg0, Zero), LLessEqual (Arg0, 0x64)))
                         {
                             Store (Arg0, BRTL)
                             While (One)
                             {
-                                Store (ToInteger (Arg0), _T_0)
-                                If (LEqual (_T_0, 0x05))
+                                Store (ToInteger (Arg0), T_0)
+                                If (LEqual (T_0, 0x05))
                                 {
                                     Store (0x0A, Local0)
                                 }
                                 Else
                                 {
-                                    If (LEqual (_T_0, 0x06))
+                                    If (LEqual (T_0, 0x06))
                                     {
                                         Store (0x10, Local0)
                                     }
                                     Else
                                     {
-                                        If (LEqual (_T_0, 0x07))
+                                        If (LEqual (T_0, 0x07))
                                         {
                                             Store (0x13, Local0)
                                         }
                                         Else
                                         {
-                                            If (LEqual (_T_0, 0x09))
+                                            If (LEqual (T_0, 0x09))
                                             {
                                                 Store (0x17, Local0)
                                             }
                                             Else
                                             {
-                                                If (LEqual (_T_0, 0x0B))
+                                                If (LEqual (T_0, 0x0B))
                                                 {
                                                     Store (0x1C, Local0)
                                                 }
                                                 Else
                                                 {
-                                                    If (LEqual (_T_0, 0x0D))
+                                                    If (LEqual (T_0, 0x0D))
                                                     {
                                                         Store (0x23, Local0)
                                                     }
                                                     Else
                                                     {
-                                                        If (LEqual (_T_0, 0x10))
+                                                        If (LEqual (T_0, 0x10))
                                                         {
                                                             Store (0x2A, Local0)
                                                         }
                                                         Else
                                                         {
-                                                            If (LEqual (_T_0, 0x14))
+                                                            If (LEqual (T_0, 0x14))
                                                             {
                                                                 Store (0x34, Local0)
                                                             }
                                                             Else
                                                             {
-                                                                If (LEqual (_T_0, 0x18))
+                                                                If (LEqual (T_0, 0x18))
                                                                 {
                                                                     Store (0x3F, Local0)
                                                                 }
                                                                 Else
                                                                 {
-                                                                    If (LEqual (_T_0, 0x1E))
+                                                                    If (LEqual (T_0, 0x1E))
                                                                     {
                                                                         Store (0x4D, Local0)
                                                                     }
                                                                     Else
                                                                     {
-                                                                        If (LEqual (_T_0, 0x24))
+                                                                        If (LEqual (T_0, 0x24))
                                                                         {
                                                                             Store (0x5E, Local0)
                                                                         }
                                                                         Else
                                                                         {
-                                                                            If (LEqual (_T_0, 0x2D))
+                                                                            If (LEqual (T_0, 0x2D))
                                                                             {
                                                                                 Store (0x73, Local0)
                                                                             }
                                                                             Else
                                                                             {
-                                                                                If (LEqual (_T_0, 0x36))
+                                                                                If (LEqual (T_0, 0x36))
                                                                                 {
                                                                                     Store (0x8C, Local0)
                                                                                 }
                                                                                 Else
                                                                                 {
-                                                                                    If (LEqual (_T_0, 0x43))
+                                                                                    If (LEqual (T_0, 0x43))
                                                                                     {
                                                                                         Store (0xAB, Local0)
                                                                                     }
                                                                                     Else
                                                                                     {
-                                                                                        If (LEqual (_T_0, 0x51))
+                                                                                        If (LEqual (T_0, 0x51))
                                                                                         {
                                                                                             Store (0xD1, Local0)
                                                                                         }
                                                                                         Else
                                                                                         {
-                                                                                            If (LEqual (_T_0, 0x64))
+                                                                                            If (LEqual (T_0, 0x64))
                                                                                             {
                                                                                                 Store (0xFF, Local0)
                                                                                             }
@@ -7106,7 +7105,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                 {
                     Method (_DSM, 4, Serialized)
                     {
-                        Name (_T_0, Zero)
+                        Name (T_0, Zero)
                         Name (SFNC, 0x00100001)
                         Name (BCFG, Package (0x09)
                         {
@@ -7133,14 +7132,14 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
 
                             While (One)
                             {
-                                Store (ToInteger (Arg2), _T_0)
-                                If (LEqual (_T_0, Zero))
+                                Store (ToInteger (Arg2), T_0)
+                                If (LEqual (T_0, Zero))
                                 {
                                     Return (SFNC)
                                 }
                                 Else
                                 {
-                                    If (LEqual (_T_0, 0x14))
+                                    If (LEqual (T_0, 0x14))
                                     {
                                         Return (BCFG)
                                     }
