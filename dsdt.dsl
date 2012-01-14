@@ -2,19 +2,19 @@
  * Intel ACPI Component Architecture
  * AML Disassembler version 20091214
  *
- * Disassembly of ./dsdt.aml, Fri Jan 13 22:25:57 2012
+ * Disassembly of ./dsdt.dat, Fri Jan 13 21:16:05 2012
  *
  *
  * Original Table Header:
  *     Signature        "DSDT"
- *     Length           0x00007C1C (31772)
+ *     Length           0x000078E8 (30952)
  *     Revision         0x01 **** ACPI 1.0, no 64-bit math support
- *     Checksum         0xCA
+ *     Checksum         0x98
  *     OEM ID           "Sony"
  *     OEM Table ID     "VAIO"
  *     OEM Revision     0x20110428 (537986088)
  *     Compiler ID      "INTL"
- *     Compiler Version 0x20101013 (537923603)
+ *     Compiler Version 0x20061109 (537268489)
  */
 DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
 {
@@ -34,6 +34,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
     External (PDC1)
     External (PDC0)
     External (CFGD)
+    External (\TNOT)
     External (\_PR_.CPU3._PPC)
     External (\_PR_.CPU2._PPC)
     External (\_PR_.CPU1._PPC)
@@ -132,7 +133,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
     Name (PDBR, 0x4D)
     Name (DPPB, 0xFED98000)
     Name (DPPL, 0x8000)
-    OperationRegion (GNVS, SystemMemory, 0xBF7BDE18, 0x01BA)
+    OperationRegion (GNVS, SystemMemory, 0xBF7BDE18, 0x000001BA)
     Field (GNVS, AnyAcc, Lock, Preserve)
     {
         OSYS,   16, 
@@ -345,7 +346,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
         OPTF,   8
     }
 
-    OperationRegion (OGNS, SystemMemory, 0xBF7BCF98, 0x1C)
+    OperationRegion (OGNS, SystemMemory, 0xBF7BCF98, 0x0000001C)
     Field (OGNS, AnyAcc, Lock, Preserve)
     {
         OG00,   8, 
@@ -3718,14 +3719,6 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                     Name (_UID, Zero)
                     Name (BUF0, ResourceTemplate ()
                     {
-                        IRQNoFlags ()
-                            {0}
-                        IRQNoFlags ()
-                            {8}
-                        IRQNoFlags ()
-                            {11}
-                        IRQNoFlags ()
-                            {15}
                         Memory32Fixed (ReadWrite,
                             0xFED00000,         // Address Base
                             0x00000400,         // Address Length
@@ -3883,6 +3876,8 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                             0x01,               // Alignment
                             0x02,               // Length
                             )
+                        IRQNoFlags ()
+                            {2}
                     })
                 }
 
@@ -4028,8 +4023,10 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                             0x0070,             // Range Minimum
                             0x0070,             // Range Maximum
                             0x01,               // Alignment
-                            0x02,               // Length
+                            0x08,               // Length
                             )
+                        IRQNoFlags ()
+                            {8}
                     })
                 }
 
@@ -4050,6 +4047,8 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                             0x10,               // Alignment
                             0x04,               // Length
                             )
+                        IRQNoFlags ()
+                            {0}
                     })
                 }
 
@@ -4129,24 +4128,11 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                         }
                         EndDependentFn ()
                     })
-                    Method (_DSM, 4, NotSerialized)
-                    {
-                        Store (Package (0x02)
-                            {
-                                "AAPL,has-embedded-fn-keys", 
-                                Buffer (0x04)
-                                {
-                                    0x01, 0x00, 0x00, 0x00
-                                }
-                            }, Local0)
-                        DTGP (Arg0, Arg1, Arg2, Arg3, RefOf (Local0))
-                        Return (Local0)
-                    }
                 }
 
                 Device (PS2M)
                 {
-                    Name (_HID, "SNYALP05")
+                    Name (_HID, "SNYALP0501")
                     Name (_CID, EisaId ("PNP0F13"))
                     Name (_CRS, ResourceTemplate ()
                     {
@@ -4158,29 +4144,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                         Return (0x0F)
                     }
                 }
-
-                Method (_DSM, 4, NotSerialized)
-                {
-                    Store (Package (0x02)
-                        {
-                            "device-id", 
-                            Buffer (0x04)
-                            {
-                                0x49, 0x1C, 0x00, 0x00
-                            }
-                        }, Local0)
-                    DTGP (Arg0, Arg1, Arg2, Arg3, RefOf (Local0))
-                    Return (Local0)
-                }
             }
-        }
-
-        Device (PNLF)
-        {
-            Name (_HID, EisaId ("APP0002"))
-            Name (_CID, "backlight")
-            Name (_UID, 0x0A)
-            Name (_STA, 0x0B)
         }
     }
 
@@ -5401,7 +5365,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                         Alias (SBV1, SDGV)
                         Method (_DSM, 4, Serialized)
                         {
-                            Name (T_0, Zero)
+                            Name (_T_0, Zero)
                             If (LEqual (Arg0, Buffer (0x10)
                                     {
                                         /* 0000 */    0x8F, 0x70, 0xFC, 0xA5, 0x75, 0x87, 0xA6, 0x4B, 
@@ -5410,8 +5374,8 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                             {
                                 While (One)
                                 {
-                                    Store (ToInteger (Arg2), T_0)
-                                    If (LEqual (T_0, Zero))
+                                    Store (ToInteger (Arg2), _T_0)
+                                    If (LEqual (_T_0, Zero))
                                     {
                                         If (LEqual (Arg1, One))
                                         {
@@ -5430,7 +5394,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                                     }
                                     Else
                                     {
-                                        If (LEqual (T_0, One))
+                                        If (LEqual (_T_0, One))
                                         {
                                             If (LEqual (SDGV, 0xFF))
                                             {
@@ -5443,7 +5407,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                                         }
                                         Else
                                         {
-                                            If (LEqual (T_0, 0x02))
+                                            If (LEqual (_T_0, 0x02))
                                             {
                                                 Return (SDGV)
                                             }
@@ -5479,7 +5443,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                         Alias (SBV2, SDGV)
                         Method (_DSM, 4, Serialized)
                         {
-                            Name (T_0, Zero)
+                            Name (_T_0, Zero)
                             If (LEqual (Arg0, Buffer (0x10)
                                     {
                                         /* 0000 */    0x8F, 0x70, 0xFC, 0xA5, 0x75, 0x87, 0xA6, 0x4B, 
@@ -5488,8 +5452,8 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                             {
                                 While (One)
                                 {
-                                    Store (ToInteger (Arg2), T_0)
-                                    If (LEqual (T_0, Zero))
+                                    Store (ToInteger (Arg2), _T_0)
+                                    If (LEqual (_T_0, Zero))
                                     {
                                         If (LEqual (Arg1, One))
                                         {
@@ -5508,7 +5472,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                                     }
                                     Else
                                     {
-                                        If (LEqual (T_0, One))
+                                        If (LEqual (_T_0, One))
                                         {
                                             If (LEqual (SDGV, 0xFF))
                                             {
@@ -5521,7 +5485,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                                         }
                                         Else
                                         {
-                                            If (LEqual (T_0, 0x02))
+                                            If (LEqual (_T_0, 0x02))
                                             {
                                                 Return (SDGV)
                                             }
@@ -5557,7 +5521,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                         Alias (SBV1, SDGV)
                         Method (_DSM, 4, Serialized)
                         {
-                            Name (T_0, Zero)
+                            Name (_T_0, Zero)
                             If (LEqual (Arg0, Buffer (0x10)
                                     {
                                         /* 0000 */    0x8F, 0x70, 0xFC, 0xA5, 0x75, 0x87, 0xA6, 0x4B, 
@@ -5566,8 +5530,8 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                             {
                                 While (One)
                                 {
-                                    Store (ToInteger (Arg2), T_0)
-                                    If (LEqual (T_0, Zero))
+                                    Store (ToInteger (Arg2), _T_0)
+                                    If (LEqual (_T_0, Zero))
                                     {
                                         If (LEqual (Arg1, One))
                                         {
@@ -5586,7 +5550,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                                     }
                                     Else
                                     {
-                                        If (LEqual (T_0, One))
+                                        If (LEqual (_T_0, One))
                                         {
                                             If (LEqual (SDGV, 0xFF))
                                             {
@@ -5599,7 +5563,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                                         }
                                         Else
                                         {
-                                            If (LEqual (T_0, 0x02))
+                                            If (LEqual (_T_0, 0x02))
                                             {
                                                 Return (SDGV)
                                             }
@@ -5635,7 +5599,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                         Alias (SBV2, SDGV)
                         Method (_DSM, 4, Serialized)
                         {
-                            Name (T_0, Zero)
+                            Name (_T_0, Zero)
                             If (LEqual (Arg0, Buffer (0x10)
                                     {
                                         /* 0000 */    0x8F, 0x70, 0xFC, 0xA5, 0x75, 0x87, 0xA6, 0x4B, 
@@ -5644,8 +5608,8 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                             {
                                 While (One)
                                 {
-                                    Store (ToInteger (Arg2), T_0)
-                                    If (LEqual (T_0, Zero))
+                                    Store (ToInteger (Arg2), _T_0)
+                                    If (LEqual (_T_0, Zero))
                                     {
                                         If (LEqual (Arg1, One))
                                         {
@@ -5664,7 +5628,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                                     }
                                     Else
                                     {
-                                        If (LEqual (T_0, One))
+                                        If (LEqual (_T_0, One))
                                         {
                                             If (LEqual (SDGV, 0xFF))
                                             {
@@ -5677,7 +5641,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                                         }
                                         Else
                                         {
-                                            If (LEqual (T_0, 0x02))
+                                            If (LEqual (_T_0, 0x02))
                                             {
                                                 Return (SDGV)
                                             }
@@ -5719,52 +5683,6 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                 0x0D, 
                 0x03
             })
-            Method (_DSM, 4, NotSerialized)
-            {
-                Store (Package (0x13)
-                    {
-                        "device-id", 
-                        Buffer (0x04)
-                        {
-                            0x26, 0x1C, 0x00, 0x00
-                        }, 
-
-                        "built-in", 
-                        Buffer (One)
-                        {
-                            0x00
-                        }, 
-
-                        "AAPL,clock-id", 
-                        Buffer (One)
-                        {
-                            0x01
-                        }, 
-
-                        "device_type", 
-                        Buffer (0x05)
-                        {
-                            "EHCI"
-                        }, 
-
-                        "AAPL,current-available", 
-                        0x0834, 
-                        "AAPL,current-extra", 
-                        0x0898, 
-                        "AAPL,current-extra-in-sleep", 
-                        0x0640, 
-                        "AAPL,device-internal", 
-                        0x02, 
-                        "AAPL,max-port-current-in-sleep", 
-                        0x0834, 
-                        Buffer (One)
-                        {
-                            0x00
-                        }
-                    }, Local0)
-                DTGP (Arg0, Arg1, Arg2, Arg3, RefOf (Local0))
-                Return (Local0)
-            }
         }
 
         Device (EHC2)
@@ -5861,7 +5779,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                         Alias (SBV1, SDGV)
                         Method (_DSM, 4, Serialized)
                         {
-                            Name (T_0, Zero)
+                            Name (_T_0, Zero)
                             If (LEqual (Arg0, Buffer (0x10)
                                     {
                                         /* 0000 */    0x8F, 0x70, 0xFC, 0xA5, 0x75, 0x87, 0xA6, 0x4B, 
@@ -5870,8 +5788,8 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                             {
                                 While (One)
                                 {
-                                    Store (ToInteger (Arg2), T_0)
-                                    If (LEqual (T_0, Zero))
+                                    Store (ToInteger (Arg2), _T_0)
+                                    If (LEqual (_T_0, Zero))
                                     {
                                         If (LEqual (Arg1, One))
                                         {
@@ -5890,7 +5808,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                                     }
                                     Else
                                     {
-                                        If (LEqual (T_0, One))
+                                        If (LEqual (_T_0, One))
                                         {
                                             If (LEqual (SDGV, 0xFF))
                                             {
@@ -5903,7 +5821,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                                         }
                                         Else
                                         {
-                                            If (LEqual (T_0, 0x02))
+                                            If (LEqual (_T_0, 0x02))
                                             {
                                                 Return (SDGV)
                                             }
@@ -5939,7 +5857,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                         Alias (SBV2, SDGV)
                         Method (_DSM, 4, Serialized)
                         {
-                            Name (T_0, Zero)
+                            Name (_T_0, Zero)
                             If (LEqual (Arg0, Buffer (0x10)
                                     {
                                         /* 0000 */    0x8F, 0x70, 0xFC, 0xA5, 0x75, 0x87, 0xA6, 0x4B, 
@@ -5948,8 +5866,8 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                             {
                                 While (One)
                                 {
-                                    Store (ToInteger (Arg2), T_0)
-                                    If (LEqual (T_0, Zero))
+                                    Store (ToInteger (Arg2), _T_0)
+                                    If (LEqual (_T_0, Zero))
                                     {
                                         If (LEqual (Arg1, One))
                                         {
@@ -5968,7 +5886,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                                     }
                                     Else
                                     {
-                                        If (LEqual (T_0, One))
+                                        If (LEqual (_T_0, One))
                                         {
                                             If (LEqual (SDGV, 0xFF))
                                             {
@@ -5981,7 +5899,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                                         }
                                         Else
                                         {
-                                            If (LEqual (T_0, 0x02))
+                                            If (LEqual (_T_0, 0x02))
                                             {
                                                 Return (SDGV)
                                             }
@@ -6063,52 +5981,6 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                 0x0D, 
                 0x03
             })
-            Method (_DSM, 4, NotSerialized)
-            {
-                Store (Package (0x13)
-                    {
-                        "device-id", 
-                        Buffer (0x04)
-                        {
-                            0x26, 0x1C, 0x00, 0x00
-                        }, 
-
-                        "built-in", 
-                        Buffer (One)
-                        {
-                            0x00
-                        }, 
-
-                        "AAPL,clock-id", 
-                        Buffer (One)
-                        {
-                            0x02
-                        }, 
-
-                        "device_type", 
-                        Buffer (0x05)
-                        {
-                            "EHCI"
-                        }, 
-
-                        "AAPL,current-available", 
-                        0x0834, 
-                        "AAPL,current-extra", 
-                        0x0898, 
-                        "AAPL,current-extra-in-sleep", 
-                        0x0640, 
-                        "AAPL,device-internal", 
-                        0x02, 
-                        "AAPL,max-port-current-in-sleep", 
-                        0x0834, 
-                        Buffer (One)
-                        {
-                            0x00
-                        }
-                    }, Local0)
-                DTGP (Arg0, Arg1, Arg2, Arg3, RefOf (Local0))
-                Return (Local0)
-            }
         }
 
         Device (HDEF)
@@ -6125,23 +5997,6 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                         Offset (0x08), 
                     ,   15, 
                 PMES,   1
-            }
-
-            Method (_DSM, 4, NotSerialized)
-            {
-                Store (Package (0x04)
-                    {
-                        "layout-id", 
-                        Buffer (0x04)
-                        {
-                            0x0C, 0x00, 0x00, 0x00
-                        }, 
-
-                        "PinConfigurations", 
-                        Buffer (Zero) {}
-                    }, Local0)
-                DTGP (Arg0, Arg1, Arg2, Arg3, RefOf (Local0))
-                Return (Local0)
             }
         }
 
@@ -6979,17 +6834,6 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                 Or (HCON, 0x02, HCON)
                 Or (HSTS, 0xFF, HSTS)
             }
-
-            Device (BUS0)
-            {
-                Name (_CID, "smbus")
-                Name (_ADR, Zero)
-                Device (DVL0)
-                {
-                    Name (_ADR, 0x57)
-                    Name (_CID, "diagsvault")
-                }
-            }
         }
     }
 
@@ -7124,104 +6968,104 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
 
                     Method (_BCM, 1, Serialized)
                     {
-                        Name (T_0, Zero)
+                        Name (_T_0, Zero)
                         If (LAnd (LGreaterEqual (Arg0, Zero), LLessEqual (Arg0, 0x64)))
                         {
                             Store (Arg0, BRTL)
                             While (One)
                             {
-                                Store (ToInteger (Arg0), T_0)
-                                If (LEqual (T_0, 0x05))
+                                Store (ToInteger (Arg0), _T_0)
+                                If (LEqual (_T_0, 0x05))
                                 {
                                     Store (0x0A, Local0)
                                 }
                                 Else
                                 {
-                                    If (LEqual (T_0, 0x06))
+                                    If (LEqual (_T_0, 0x06))
                                     {
                                         Store (0x10, Local0)
                                     }
                                     Else
                                     {
-                                        If (LEqual (T_0, 0x07))
+                                        If (LEqual (_T_0, 0x07))
                                         {
                                             Store (0x13, Local0)
                                         }
                                         Else
                                         {
-                                            If (LEqual (T_0, 0x09))
+                                            If (LEqual (_T_0, 0x09))
                                             {
                                                 Store (0x17, Local0)
                                             }
                                             Else
                                             {
-                                                If (LEqual (T_0, 0x0B))
+                                                If (LEqual (_T_0, 0x0B))
                                                 {
                                                     Store (0x1C, Local0)
                                                 }
                                                 Else
                                                 {
-                                                    If (LEqual (T_0, 0x0D))
+                                                    If (LEqual (_T_0, 0x0D))
                                                     {
                                                         Store (0x23, Local0)
                                                     }
                                                     Else
                                                     {
-                                                        If (LEqual (T_0, 0x10))
+                                                        If (LEqual (_T_0, 0x10))
                                                         {
                                                             Store (0x2A, Local0)
                                                         }
                                                         Else
                                                         {
-                                                            If (LEqual (T_0, 0x14))
+                                                            If (LEqual (_T_0, 0x14))
                                                             {
                                                                 Store (0x34, Local0)
                                                             }
                                                             Else
                                                             {
-                                                                If (LEqual (T_0, 0x18))
+                                                                If (LEqual (_T_0, 0x18))
                                                                 {
                                                                     Store (0x3F, Local0)
                                                                 }
                                                                 Else
                                                                 {
-                                                                    If (LEqual (T_0, 0x1E))
+                                                                    If (LEqual (_T_0, 0x1E))
                                                                     {
                                                                         Store (0x4D, Local0)
                                                                     }
                                                                     Else
                                                                     {
-                                                                        If (LEqual (T_0, 0x24))
+                                                                        If (LEqual (_T_0, 0x24))
                                                                         {
                                                                             Store (0x5E, Local0)
                                                                         }
                                                                         Else
                                                                         {
-                                                                            If (LEqual (T_0, 0x2D))
+                                                                            If (LEqual (_T_0, 0x2D))
                                                                             {
                                                                                 Store (0x73, Local0)
                                                                             }
                                                                             Else
                                                                             {
-                                                                                If (LEqual (T_0, 0x36))
+                                                                                If (LEqual (_T_0, 0x36))
                                                                                 {
                                                                                     Store (0x8C, Local0)
                                                                                 }
                                                                                 Else
                                                                                 {
-                                                                                    If (LEqual (T_0, 0x43))
+                                                                                    If (LEqual (_T_0, 0x43))
                                                                                     {
                                                                                         Store (0xAB, Local0)
                                                                                     }
                                                                                     Else
                                                                                     {
-                                                                                        If (LEqual (T_0, 0x51))
+                                                                                        If (LEqual (_T_0, 0x51))
                                                                                         {
                                                                                             Store (0xD1, Local0)
                                                                                         }
                                                                                         Else
                                                                                         {
-                                                                                            If (LEqual (T_0, 0x64))
+                                                                                            If (LEqual (_T_0, 0x64))
                                                                                             {
                                                                                                 Store (0xFF, Local0)
                                                                                             }
@@ -7262,7 +7106,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                 {
                     Method (_DSM, 4, Serialized)
                     {
-                        Name (T_0, Zero)
+                        Name (_T_0, Zero)
                         Name (SFNC, 0x00100001)
                         Name (BCFG, Package (0x09)
                         {
@@ -7289,14 +7133,14 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
 
                             While (One)
                             {
-                                Store (ToInteger (Arg2), T_0)
-                                If (LEqual (T_0, Zero))
+                                Store (ToInteger (Arg2), _T_0)
+                                If (LEqual (_T_0, Zero))
                                 {
                                     Return (SFNC)
                                 }
                                 Else
                                 {
-                                    If (LEqual (T_0, 0x14))
+                                    If (LEqual (_T_0, 0x14))
                                     {
                                         Return (BCFG)
                                     }
@@ -9049,7 +8893,7 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
 
     Name (BUFN, Zero)
     Name (MBUF, Buffer (0x1000) {})
-    OperationRegion (MDBG, SystemMemory, 0xBF76C018, 0x1004)
+    OperationRegion (MDBG, SystemMemory, 0xBF76C018, 0x00001004)
     Field (MDBG, AnyAcc, Lock, Preserve)
     {
         MDG0,   32768
@@ -9215,37 +9059,5 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
         Zero, 
         Zero
     })
-    Method (DTGP, 5, NotSerialized)
-    {
-        If (LEqual (Arg0, Buffer (0x10)
-                {
-                    /* 0000 */    0xC6, 0xB7, 0xB5, 0xA0, 0x18, 0x13, 0x1C, 0x44, 
-                    /* 0008 */    0xB0, 0xC9, 0xFE, 0x69, 0x5E, 0xAF, 0x94, 0x9B
-                }))
-        {
-            If (LEqual (Arg1, One))
-            {
-                If (LEqual (Arg2, Zero))
-                {
-                    Store (Buffer (One)
-                        {
-                            0x03
-                        }, Arg4)
-                    Return (One)
-                }
-
-                If (LEqual (Arg2, One))
-                {
-                    Return (One)
-                }
-            }
-        }
-
-        Store (Buffer (One)
-            {
-                0x00
-            }, Arg4)
-        Return (Zero)
-    }
 }
 
