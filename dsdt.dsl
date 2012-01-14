@@ -4488,6 +4488,14 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
             }
         }
 
+        Device (PNLF)
+        {
+            Name (_HID, EisaId ("APP0002"))
+            Name (_CID, "backlight")
+            Name (_UID, 0x0A)
+            Name (_STA, 0x0B)
+        }
+
         Method (NHPG, 0, Serialized)
         {
             Store (Zero, ^RP01.HPEX)
@@ -5669,6 +5677,53 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                 0x0D, 
                 0x03
             })
+
+            Method (_DSM, 4, NotSerialized)
+            {
+                Store (Package (0x13)
+                    {
+                        "device-id", 
+                        Buffer (0x04)
+                        {
+                            0x26, 0x1C, 0x00, 0x00
+                        }, 
+
+                        "built-in", 
+                        Buffer (One)
+                        {
+                            0x00
+                        }, 
+
+                        "AAPL,clock-id", 
+                        Buffer (One)
+                        {
+                            0x01
+                        }, 
+
+                        "device_type", 
+                        Buffer (0x05)
+                        {
+                            "EHCI"
+                        }, 
+
+                        "AAPL,current-available", 
+                        0x0834, 
+                        "AAPL,current-extra", 
+                        0x0898, 
+                        "AAPL,current-extra-in-sleep", 
+                        0x0640, 
+                        "AAPL,device-internal", 
+                        0x02, 
+                        "AAPL,max-port-current-in-sleep", 
+                        0x0834, 
+                        Buffer (One)
+                        {
+                            0x00
+                        }
+                    }, Local0)
+                DTGP (Arg0, Arg1, Arg2, Arg3, RefOf (Local0))
+                Return (Local0)
+            }
         }
 
         Device (EHC2)
@@ -5967,6 +6022,53 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                 0x0D, 
                 0x03
             })
+
+            Method (_DSM, 4, NotSerialized)
+            {
+                Store (Package (0x13)
+                    {
+                        "device-id", 
+                        Buffer (0x04)
+                        {
+                            0x26, 0x1C, 0x00, 0x00
+                        }, 
+
+                        "built-in", 
+                        Buffer (One)
+                        {
+                            0x00
+                        }, 
+
+                        "AAPL,clock-id", 
+                        Buffer (One)
+                        {
+                            0x02
+                        }, 
+
+                        "device_type", 
+                        Buffer (0x05)
+                        {
+                            "EHCI"
+                        }, 
+
+                        "AAPL,current-available", 
+                        0x0834, 
+                        "AAPL,current-extra", 
+                        0x0898, 
+                        "AAPL,current-extra-in-sleep", 
+                        0x0640, 
+                        "AAPL,device-internal", 
+                        0x02, 
+                        "AAPL,max-port-current-in-sleep", 
+                        0x0834, 
+                        Buffer (One)
+                        {
+                            0x00
+                        }
+                    }, Local0)
+                DTGP (Arg0, Arg1, Arg2, Arg3, RefOf (Local0))
+                Return (Local0)
+            }
         }
 
         Device (HDEF)
