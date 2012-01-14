@@ -3715,57 +3715,19 @@ DefinitionBlock ("./dsdt.aml", "DSDT", 1, "Sony", "VAIO", 0x20110428)
                 Device (HPET)
                 {
                     Name (_HID, EisaId ("PNP0103"))
-                    Name (_UID, Zero)
-                    Name (BUF0, ResourceTemplate ()
+                    Name (_CID, EisaId ("PNP0C01")) 
+                    Name (_STA, 0x0F)
+                    Name (_CRS, ResourceTemplate ()
                     {
-                        Memory32Fixed (ReadWrite,
-                            0xFED00000,         // Address Base
-                            0x00000400,         // Address Length
-                            )
+                            IRQNoFlags ()
+                                    {0}
+                            IRQNoFlags ()
+                                    {8}
+                            Memory32Fixed (ReadOnly,
+                                    0xFED00000,              // Address Base
+                                    0x00000400,              // Address Length
+                                    )
                     })
-                    Method (_STA, 0, NotSerialized)
-                    {
-                        If (LGreaterEqual (OSYS, 0x07D1))
-                        {
-                            If (HPAE)
-                            {
-                                Return (0x0F)
-                            }
-                        }
-                        Else
-                        {
-                            If (HPAE)
-                            {
-                                Return (0x0B)
-                            }
-                        }
-
-                        Return (Zero)
-                    }
-
-                    Method (_CRS, 0, Serialized)
-                    {
-                        If (HPAE)
-                        {
-                            CreateDWordField (BUF0, 0x04, HPT0)
-                            If (LEqual (HPAS, One))
-                            {
-                                Store (0xFED01000, HPT0)
-                            }
-
-                            If (LEqual (HPAS, 0x02))
-                            {
-                                Store (0xFED02000, HPT0)
-                            }
-
-                            If (LEqual (HPAS, 0x03))
-                            {
-                                Store (0xFED03000, HPT0)
-                            }
-                        }
-
-                        Return (BUF0)
-                    }
                 }
 
                 Device (IPIC)
